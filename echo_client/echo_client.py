@@ -45,7 +45,6 @@ class EchoClient(object):
         try:
             channel = self.connect()
             channel.queue_declare(queue=self.task_queue, durable=True)
-            print(json.dumps(message.to_json()))
             channel.basic_publish(
                 exchange="",
                 routing_key=self.task_queue,
@@ -54,7 +53,7 @@ class EchoClient(object):
                     delivery_mode=2
                 )
             )
-            logger.info(f"Published message to {self.task_queue}")
+            logger.info(f"Published message {message.id} to {self.task_queue}")
         except Exception as e:
             logger.error(f"Failed to publish message: {e}")
             raise
