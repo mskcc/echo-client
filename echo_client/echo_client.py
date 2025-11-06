@@ -88,10 +88,10 @@ class EchoClient(object):
                 ch.basic_ack(delivery_tag=method.delivery_tag)
             except json.JSONDecodeError:
                 logger.error(f"Invalid JSON received: {body}")
-                ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
+                ch.basic_ack(delivery_tag=method.delivery_tag)
             except Exception as e:
-                logger.error(f"Error processing message: {e}")
-                ch.basic_nack(delivery_tag=method.delivery_tag, requeue=True)
+                logger.error(f"Error processing message: {body} {e}")
+                ch.basic_ack(delivery_tag=method.delivery_tag)
 
         channel = self.connect()
         channel.queue_declare(queue=self.confirmation_queue, durable=True)
