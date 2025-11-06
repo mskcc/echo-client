@@ -19,7 +19,7 @@ def read_readme():
 
 setup(
     name="echo_client",
-    version="0.1.0",
+    version="0.1.1",
     author="MSK CMO",
     author_email="ivkovics@mskcc.org",
     description="Python Library for Echo Service (Copy Service)",
